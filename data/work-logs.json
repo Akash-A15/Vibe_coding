@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1754286986782,
+    "memberId": 1754286942069,
+    "hours": 9,
+    "activity": "testing web",
+    "category": "testing",
+    "loggedBy": 1754286942069,
+    "date": "2025-08-04",
+    "timestamp": "2025-08-04T05:56:26.782Z"
+  },
+  {
+    "id": 1754378945396,
+    "memberId": 1754287060483,
+    "hours": 9,
+    "activity": "testing",
+    "category": "testing",
+    "loggedBy": 1754287060483,
+    "date": "2025-08-05",
+    "timestamp": "2025-08-05T07:29:05.396Z"
+  },
+  {
+    "id": 1754496749534,
+    "memberId": 1,
+    "hours": 9,
+    "activity": "testing",
+    "category": "testing",
+    "loggedBy": 1754287060483,
+    "date": "2025-08-06",
+    "timestamp": "2025-08-06T16:12:29.534Z"
+  }
+]

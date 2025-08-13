@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "title": "Test Login Functionality",
+    "assignedTo": 1,
+    "status": "in-progress",
+    "priority": "high",
+    "createdDate": "2024-12-20",
+    "dueDate": "2024-12-22"
+  },
+  {
+    "id": 2,
+    "title": "UI Regression Testing",
+    "assignedTo": 2,
+    "status": "in-progress",
+    "priority": "medium",
+    "createdDate": "2024-12-20",
+    "dueDate": "2024-12-25"
+  },
+  {
+    "id": 1754043643526,
+    "title": "Bug Fix",
+    "assignedTo": 1,
+    "priority": "medium",
+    "dueDate": "2025-09-23",
+    "description": "",
+    "status": "pending",
+    "createdDate": "2025-08-01"
+  },
+  {
+    "id": 1754291638840,
+    "title": "Web Testing",
+    "assignedTo": 1754287151245,
+    "priority": "low",
+    "dueDate": "2025-08-12",
+    "description": "Do three test case",
+    "status": "completed",
+    "createdBy": 1754287060483,
+    "createdDate": "2025-08-04"
+  },
+  {
+    "id": 1754298533058,
+    "title": "Web Testing",
+    "assignedTo": 1,
+    "priority": "low",
+    "dueDate": "2025-08-12",
+    "description": "",
+    "status": "pending",
+    "createdBy": 1754287060483,
+    "createdDate": "2025-08-04"
+  },
+  {
+    "id": 1754298833474,
+    "title": "Web Testing1",
+    "assignedTo": 1754286942069,
+    "priority": "low",
+    "dueDate": "2025-08-12",
+    "description": "",
+    "status": "completed",
+    "createdBy": 1754287060483,
+    "createdDate": "2025-08-04"
+  }
+]
