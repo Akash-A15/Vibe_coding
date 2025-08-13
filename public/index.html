@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Team Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea'/%3E%3Cstop offset='100%25' style='stop-color:%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='white' stroke-width='2'/%3E%3Ctext x='50' y='65' font-family='Arial,sans-serif' font-size='45' font-weight='bold' text-anchor='middle' fill='white'%3EQA%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Authentication Container -->
+    <div id="auth-container" class="auth-container">
+        <!-- Login Form -->
+        <div id="login-form" class="auth-form active">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1><i class="fas fa-chart-line"></i> QA Team Dashboard</h1>
+                    <p>Sign in to access your dashboard</p>
+                </div>
+                
+                <form id="login-form-element">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn primary">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                    
+                    <div class="auth-error" id="login-error"></div>
+                </form>
+                
+                <div class="auth-links">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                                                <p class="text-secondary" style="font-size: 0.85rem; margin-top: 1rem;">
+                        <i class="fas fa-info-circle"></i> New employees: Please contact your manager for login credentials
+                    </p>
+                </div>
+                
+                <div class="demo-info">
+                    <h4>Demo Account:</h4>
+                    <p>Email: <strong>akash1@gmail.com</strong></p>
+                    <p>Password: <strong>akash123</strong></p>
+                </div>
+            </div>
+        </div>
+        
+
+        
+        <!-- Forgot Password Form -->
+        <div id="forgot-password-form" class="auth-form">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1><i class="fas fa-key"></i> Reset Password</h1>
+                    <p>Enter your email to reset your password</p>
+                </div>
+                
+                <form id="forgot-password-form-element">
+                    <div class="form-group">
+                        <label for="forgot-email">Email Address</label>
+                        <input type="email" id="forgot-email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn primary">
+                        <i class="fas fa-paper-plane"></i> Send Reset Code
+                    </button>
+                    
+                    <div class="auth-error" id="forgot-error"></div>
+                    <div class="auth-success" id="forgot-success"></div>
+                </form>
+                
+                <!-- Reset Password with Code -->
+                <div id="reset-password-section" class="reset-section" style="display: none;">
+                    <form id="reset-password-form-element">
+                        <div class="form-group">
+                            <label for="reset-code">Reset Code</label>
+                            <input type="text" id="reset-code" placeholder="Enter the reset code" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" placeholder="Enter new password (min 6 characters)" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirm New Password</label>
+                            <input type="password" id="confirm-new-password" placeholder="Confirm new password" required>
+                        </div>
+                        
+                        <button type="submit" class="auth-btn primary">
+                            <i class="fas fa-check"></i> Reset Password
+                        </button>
+                        
+                        <div class="auth-error" id="reset-error"></div>
+                    </form>
+                </div>
+                
+                <div class="auth-links">
+                    <p><a href="#" onclick="showLogin()">Back to Sign In</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Password Change Form (First Time Login) -->
+        <div id="change-password-form" class="auth-form">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1><i class="fas fa-lock"></i> Change Password</h1>
+                    <p>Please set a new password for your account</p>
+                </div>
+                
+                <form id="change-password-form-element">
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" placeholder="Enter current password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password-change">New Password</label>
+                        <input type="password" id="new-password-change" placeholder="Enter new password (min 6 characters)" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-new-password-change">Confirm New Password</label>
+                        <input type="password" id="confirm-new-password-change" placeholder="Confirm new password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn primary">
+                        <i class="fas fa-check"></i> Update Password
+                    </button>
+                    
+                    <div class="auth-error" id="change-password-error"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Container (hidden initially) -->
+    <div id="dashboard-container" class="dashboard-container" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> QA Team Dashboard</h1>
+                <div class="header-actions">
+                    <button class="mobile-nav-toggle" onclick="toggleMobileNav()" id="mobile-nav-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <span class="user-info" id="user-welcome">Welcome, User</span>
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="btn btn-secondary logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> <span class="logout-text">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs" id="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">
+                <i class="fas fa-home"></i> <span>Overview</span>
+                <span class="notification-badge" id="overview-notification-badge" style="display: none;"></span>
+            </button>
+            <button class="nav-tab" onclick="showTab('team')">
+                <i class="fas fa-users"></i> <span>Team Members</span>
+            </button>
+            <button class="nav-tab" onclick="showTab('tasks')">
+                <i class="fas fa-tasks"></i> <span>Tasks</span>
+            </button>
+            <button class="nav-tab" onclick="showTab('worklogs')">
+                <i class="fas fa-clock"></i> <span>Work Logs</span>
+            </button>
+            <button class="nav-tab" onclick="showTab('reports')">
+                <i class="fas fa-chart-bar"></i> <span>Reports</span>
+            </button>
+            <button class="nav-tab" onclick="showTab('profile')">
+                <i class="fas fa-user-circle"></i> <span>Profile</span>
+            </button>
+        </nav>
+
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="hideMobileNav()"></div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav-menu" id="mobile-nav-menu">
+            <div class="mobile-nav-header">
+                <h3><i class="fas fa-chart-line"></i> QA Dashboard</h3>
+            </div>
+            <div class="mobile-nav-items">
+                <button class="mobile-nav-item active" onclick="showTabMobile('overview')">
+                    <i class="fas fa-home"></i> Overview
+                </button>
+                <button class="mobile-nav-item" onclick="showTabMobile('team')">
+                    <i class="fas fa-users"></i> Team Members
+                </button>
+                <button class="mobile-nav-item" onclick="showTabMobile('tasks')">
+                    <i class="fas fa-tasks"></i> Tasks
+                </button>
+                <button class="mobile-nav-item" onclick="showTabMobile('worklogs')">
+                    <i class="fas fa-clock"></i> Work Logs
+                </button>
+                <button class="mobile-nav-item" onclick="showTabMobile('reports')">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </button>
+                <button class="mobile-nav-item" onclick="showTabMobile('profile')">
+                    <i class="fas fa-user-circle"></i> Profile
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-members">0</h3>
+                            <p>Team Members</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon available">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="available-members">0</h3>
+                            <p>Available Now</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-tasks">0</h3>
+                            <p>Total Tasks</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon completed">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="completed-tasks">0</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Assigned Tasks Section (only for employees) -->
+                <div id="my-tasks-section" class="my-tasks-section" style="display: none;">
+                    <div class="section">
+                        <h2>
+                            <i class="fas fa-bell"></i> My Assigned Tasks
+                            <span class="task-count-badge" id="pending-tasks-count">0</span>
+                        </h2>
+                        <div id="my-assigned-tasks" class="my-tasks-container">
+                            <!-- Assigned tasks will be populated here -->
+                        </div>
+                        <div class="task-actions" style="margin-top: 1rem;">
+                            <button class="btn btn-primary" onclick="showTab('tasks')" style="font-size: 0.9rem;">
+                                <i class="fas fa-eye"></i> View All Tasks
+                            </button>
+                            <button class="btn btn-secondary" onclick="markTasksAsViewed()" style="font-size: 0.9rem;">
+                                <i class="fas fa-check"></i> Mark as Viewed
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-sections">
+                    <div class="section">
+                        <h2>Recent Activity</h2>
+                        <div id="recent-activity" class="activity-list">
+                            <!-- Recent activity will be populated here -->
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h2>Quick Actions</h2>
+                        <div class="quick-actions">
+                            <button class="action-btn" onclick="showTab('worklogs'); showAddWorkLogForm()">
+                                <i class="fas fa-plus"></i> Log Work Hours
+                            </button>
+                            <button class="action-btn" onclick="showTab('tasks'); showAddTaskForm()">
+                                <i class="fas fa-plus"></i> Add New Task
+                            </button>
+                            <button class="action-btn" onclick="showTab('team'); showAddMemberForm()">
+                                <i class="fas fa-user-plus"></i> Add Team Member
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members Tab -->
+            <div id="team" class="tab-content">
+                <div class="section-header">
+                    <h2>Team Members</h2>
+                    <div>
+                        <button class="btn btn-primary" onclick="showAddMemberForm()">
+                            <i class="fas fa-user-plus"></i> Add Member
+                        </button>
+                    </div>
+                </div>
+                <div id="team-grid" class="team-grid">
+                    <!-- Team members will be populated here -->
+                </div>
+
+                <!-- Add Member Modal -->
+                <div id="add-member-modal" class="modal">
+                    <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+                        <h3>Register New Employee</h3>
+                        <p class="text-secondary" style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+                            <i class="fas fa-info-circle"></i> This will create a complete employee account with login credentials
+                        </p>
+                        <form id="add-member-form">
+                            <!-- Basic Information -->
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                                <i class="fas fa-user"></i> Basic Information
+                            </h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="text" id="member-name" placeholder="Full Name" required>
+                                <input type="email" id="member-email" placeholder="Email Address" required>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <select id="member-role" required>
+                                    <option value="">Select Job Title</option>
+                                    <option value="QA Analyst">QA Analyst</option>
+                                    <option value="QA Engineer">QA Engineer</option>
+                                    <option value="Senior QA Engineer">Senior QA Engineer</option>
+                                    <option value="QA Lead">QA Lead</option>
+                                    <option value="QA Manager">QA Manager</option>
+                                </select>
+                                
+                                <select id="member-position" required>
+                                    <option value="">Select Position Level</option>
+                                    <option value="Employee">Employee</option>
+                                    <option value="Admin">Admin (Team Lead/Manager)</option>
+                                </select>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="password" id="member-password" placeholder="Temporary Password (min 6 chars)" required>
+                                <select id="member-availability">
+                                    <option value="available">Available</option>
+                                    <option value="busy">Busy</option>
+                                    <option value="on-leave">On Leave</option>
+                                </select>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                                <i class="fas fa-address-book"></i> Contact Information
+                            </h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="tel" id="member-phone" placeholder="Phone Number" required>
+                                <input type="text" id="member-emergency-contact" placeholder="Emergency Contact Number" required>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                                <textarea id="member-address" placeholder="Full Address (Optional - can be updated later)" rows="2"></textarea>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                                <input type="text" id="member-city" placeholder="City (Optional)">
+                                <input type="text" id="member-state" placeholder="State/Province (Optional)">
+                                <input type="text" id="member-zipcode" placeholder="ZIP/Postal Code (Optional)">
+                            </div>
+
+                            <!-- Professional Details -->
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                                <i class="fas fa-briefcase"></i> Professional Details
+                            </h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="text" id="member-employee-id" placeholder="Employee ID" required>
+                                <input type="date" id="member-join-date" required>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="text" id="member-department" placeholder="Department" value="Quality Assurance" required>
+                                <select id="member-employment-type" required>
+                                    <option value="">Employment Type</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Intern">Intern</option>
+                                </select>
+                            </div>
+
+                            <!-- Skills & Education -->
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                                <i class="fas fa-graduation-cap"></i> Skills & Education
+                            </h4>
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                                <textarea id="member-skills" placeholder="Technical Skills (Optional - can be updated later)" rows="2"></textarea>
+                                <input type="text" id="member-education" placeholder="Highest Education (Optional - can be updated later)">
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="number" id="member-experience" placeholder="Years of Experience (Optional)" min="0" max="50">
+                                <input type="text" id="member-certifications" placeholder="Certifications (Optional - can be updated later)">
+                            </div>
+                            
+                            <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-primary); margin: 1rem 0;">
+                                <p class="text-secondary" style="font-size: 0.85rem; margin: 0;">
+                                    <i class="fas fa-lightbulb"></i> <strong>Note:</strong> The employee will be required to change this password on their first login.
+                                </p>
+                            </div>
+                            
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-user-plus"></i> Register Employee
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="hideModal('add-member-modal')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Tab -->
+            <div id="tasks" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-tasks"></i> Task Management</h2>
+                    <button class="btn btn-primary" onclick="showAddTaskForm()">
+                        <i class="fas fa-plus"></i> Add Task
+                    </button>
+                </div>
+                
+                <!-- Pending Tasks Section -->
+                <div class="tasks-section">
+                    <div class="subsection-header">
+                        <h3><i class="fas fa-clock"></i> Pending Tasks</h3>
+                        <span id="pending-tasks-count" class="count-badge">0</span>
+                    </div>
+                    <div id="pending-tasks-container" class="tasks-container">
+                        <!-- Pending tasks will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Completed Tasks Section -->
+                <div class="tasks-section">
+                    <div class="subsection-header">
+                        <h3><i class="fas fa-check-circle"></i> Completed Tasks</h3>
+                        <span id="completed-tasks-count" class="count-badge">0</span>
+                    </div>
+                    <div id="completed-tasks-container" class="tasks-container">
+                        <!-- Completed tasks will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Add Task Modal -->
+                <div id="add-task-modal" class="modal">
+                    <div class="modal-content">
+                        <h3>Add New Task</h3>
+                        <form id="add-task-form">
+                            <input type="text" id="task-title" placeholder="Task Title" required>
+                            <select id="task-assignee" required>
+                                <option value="">Assign to...</option>
+                            </select>
+                            <select id="task-priority" required>
+                                <option value="">Select Priority</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                            <input type="date" id="task-due-date" required>
+                            <textarea id="task-description" placeholder="Task Description (optional)"></textarea>
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">Add Task</button>
+                                <button type="button" class="btn btn-secondary" onclick="hideModal('add-task-modal')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Update Member Availability Modal -->
+                <div id="update-availability-modal" class="modal">
+                    <div class="modal-content">
+                        <button class="modal-close-btn" onclick="hideModal('update-availability-modal')" title="Close modal" aria-label="Close availability update modal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <h3><i class="fas fa-clock"></i> Update Availability Status</h3>
+                        <div id="member-availability-info" style="margin-bottom: 1.5rem; padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 4px solid var(--accent-primary);">
+                            <p class="text-primary" style="margin: 0; font-weight: 600;" id="availability-member-name">Member Name</p>
+                            <p class="text-secondary" style="margin: 0; font-size: 0.9rem;">Current Status: <span id="current-member-availability">available</span></p>
+                        </div>
+                        <form id="update-availability-form">
+                            <label for="new-member-availability" class="text-primary" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">New Availability Status:</label>
+                            <select id="new-member-availability" required style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: var(--input-bg); color: var(--text-primary); margin-bottom: 1.5rem;" title="Select new availability status" aria-label="Select new availability status">
+                                <option value="">Select availability status...</option>
+                                <option value="available">🟢 Available</option>
+                                <option value="busy">🟡 Busy</option>
+                                <option value="on-leave">🔴 On Leave</option>
+                            </select>
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Update Availability
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="hideModal('update-availability-modal')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Update Task Status Modal -->
+                <div id="update-status-modal" class="modal">
+                    <div class="modal-content">
+                        <h3><i class="fas fa-edit"></i> Update Task Status</h3>
+                        <div id="task-status-info" style="margin-bottom: 1.5rem; padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 4px solid var(--accent-primary);">
+                            <p class="text-primary" style="margin: 0; font-weight: 600;" id="status-task-title">Task Title</p>
+                            <p class="text-secondary" style="margin: 0; font-size: 0.9rem;">Current Status: <span id="current-task-status">pending</span></p>
+                        </div>
+                        <form id="update-status-form">
+                            <label for="new-task-status" class="text-primary" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">New Status:</label>
+                            <select id="new-task-status" required style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: var(--input-bg); color: var(--text-primary);">
+                                <option value="">Select new status...</option>
+                                <option value="pending">🕒 Pending</option>
+                                <option value="in-progress">⚡ In Progress</option>
+                                <option value="completed">✅ Completed</option>
+                            </select>
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Update Status
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="hideModal('update-status-modal')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Member Details Modal -->
+                <div id="member-details-modal" class="modal">
+                    <div class="modal-content" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+                        <button class="modal-close-btn" onclick="hideModal('member-details-modal')" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="member-details-header" style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #e5e7eb;">
+                            <div class="member-avatar-large" id="details-member-avatar" style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold;">
+                                JD
+                            </div>
+                            <div>
+                                <h2 class="text-primary" id="details-member-name" style="margin: 0;">John Doe</h2>
+                                <p class="text-secondary" id="details-member-role" style="margin: 0.5rem 0 0 0; font-size: 1.1rem;">QA Engineer</p>
+                                <div id="details-member-status" style="margin-top: 0.5rem;">
+                                    <span class="member-status available">Available</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <!-- Personal Information -->
+                            <div class="details-section">
+                                <h3 style="color: #374151; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-user"></i> Personal Information
+                                </h3>
+                                <div class="details-grid">
+                                    <div class="detail-item">
+                                        <label>Employee ID:</label>
+                                        <span id="details-employee-id">EMP001</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Email:</label>
+                                        <span id="details-email">john.doe@company.com</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Phone:</label>
+                                        <span id="details-phone">+1 (555) 123-4567</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Emergency Contact:</label>
+                                        <span id="details-emergency-contact">+1 (555) 987-6543</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professional Information -->
+                            <div class="details-section">
+                                <h3 style="color: #374151; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-briefcase"></i> Professional Details
+                                </h3>
+                                <div class="details-grid">
+                                    <div class="detail-item">
+                                        <label>Department:</label>
+                                        <span id="details-department">Quality Assurance</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Join Date:</label>
+                                        <span id="details-join-date">2023-01-15</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Employment Type:</label>
+                                        <span id="details-employment-type">Full-time</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Experience:</label>
+                                        <span id="details-experience">3 years</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Information -->
+                        <div class="details-section" style="margin-top: 2rem;">
+                            <h3 style="color: #374151; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-map-marker-alt"></i> Address Information
+                            </h3>
+                            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1rem;">
+                                <div class="detail-item">
+                                    <label>Address:</label>
+                                    <span id="details-address">123 Main Street, Apt 4B</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>City:</label>
+                                    <span id="details-city">New York</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>State:</label>
+                                    <span id="details-state">NY</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>ZIP:</label>
+                                    <span id="details-zipcode">10001</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skills & Education -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                            <div class="details-section">
+                                <h3 style="color: #374151; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-code"></i> Technical Skills
+                                </h3>
+                                <div class="text-secondary" id="details-skills" style="line-height: 1.6;">
+                                    Selenium, Java, API Testing, Manual Testing
+                                </div>
+                            </div>
+
+                            <div class="details-section">
+                                <h3 style="color: #374151; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-graduation-cap"></i> Education & Certifications
+                                </h3>
+                                <div class="details-grid">
+                                    <div class="detail-item">
+                                        <label>Education:</label>
+                                        <span id="details-education">Bachelor's in Computer Science</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Certifications:</label>
+                                        <span id="details-certifications">ISTQB Foundation Level</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-actions" style="margin-top: 2rem;">
+                            <button type="button" class="btn btn-secondary" onclick="hideModal('member-details-modal')">
+                                <i class="fas fa-times"></i> Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Logs Tab -->
+            <div id="worklogs" class="tab-content">
+                <div class="section-header">
+                    <h2>Work Hours Tracking</h2>
+                    <button class="btn btn-primary" onclick="showAddWorkLogForm()">
+                        <i class="fas fa-clock"></i> Log Hours
+                    </button>
+                </div>
+                <div id="work-logs-container" class="work-logs-container">
+                    <!-- Work logs will be populated here -->
+                </div>
+
+                <!-- Add Work Log Modal -->
+                <div id="add-worklog-modal" class="modal">
+                    <div class="modal-content">
+                        <h3>Log Work Hours</h3>
+                        <form id="add-worklog-form">
+                            <select id="worklog-member" required>
+                                <option value="">Select Team Member</option>
+                            </select>
+                            <input type="number" id="worklog-hours" placeholder="Hours Worked" min="0.5" max="12" step="0.5" required>
+                            <input type="text" id="worklog-activity" placeholder="Activity Description" required>
+                            <select id="worklog-category">
+                                <option value="testing">Testing</option>
+                                <option value="automation">Automation</option>
+                                <option value="review">Code Review</option>
+                                <option value="documentation">Documentation</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">Log Hours</button>
+                                <button type="button" class="btn btn-secondary" onclick="hideModal('add-worklog-modal')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="reports" class="tab-content">
+                <div class="section-header">
+                    <h2>Analytics & Reports</h2>
+                </div>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>Team Performance</h3>
+                        <div id="team-performance-chart" class="chart-placeholder">
+                            <p>Total Hours Logged: <span id="total-hours">0</span></p>
+                            <p>Average Hours per Member: <span id="avg-hours">0</span></p>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Task Status Distribution</h3>
+                        <div id="task-status-chart" class="chart-placeholder">
+                            <div class="status-breakdown">
+                                <div class="status-item">
+                                    <span class="status-indicator pending"></span>
+                                    <span>Pending: <span id="pending-count">0</span></span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-indicator in-progress"></span>
+                                    <span>In Progress: <span id="progress-count">0</span></span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-indicator completed"></span>
+                                    <span>Completed: <span id="completed-count">0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="profile" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-circle"></i> My Profile</h2>
+                    <button class="btn btn-primary" onclick="showEditProfileModal()">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+                
+                <!-- Profile Information Display -->
+                <div class="profile-sections">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar" id="profile-avatar">
+                                JD
+                            </div>
+                            <div class="profile-basic-info">
+                                <h2 id="profile-name">John Doe</h2>
+                                <p id="profile-role">QA Engineer</p>
+                                <div id="profile-status">
+                                    <span class="member-status available">Available</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-details-grid">
+                        <!-- Personal Information -->
+                        <div class="profile-section">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            <div class="profile-details">
+                                <div class="profile-detail-item">
+                                    <label>Email:</label>
+                                    <span id="profile-email">john.doe@company.com</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Phone:</label>
+                                    <span id="profile-phone">+1 (555) 123-4567</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Emergency Contact:</label>
+                                    <span id="profile-emergency-contact">+1 (555) 987-6543</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Information -->
+                        <div class="profile-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+                            <div class="profile-details">
+                                <div class="profile-detail-item">
+                                    <label>Address:</label>
+                                    <span id="profile-address">123 Main Street, Apt 4B</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>City:</label>
+                                    <span id="profile-city">New York</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>State:</label>
+                                    <span id="profile-state">NY</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>ZIP Code:</label>
+                                    <span id="profile-zipcode">10001</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education & Skills -->
+                        <div class="profile-section">
+                            <h3><i class="fas fa-graduation-cap"></i> Education & Skills</h3>
+                            <div class="profile-details">
+                                <div class="profile-detail-item">
+                                    <label>Education:</label>
+                                    <span id="profile-education">Bachelor's in Computer Science</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Certifications:</label>
+                                    <span id="profile-certifications">ISTQB Foundation Level</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Technical Skills:</label>
+                                    <span id="profile-skills">Selenium, Java, API Testing, Manual Testing</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional Information (Read-only) -->
+                        <div class="profile-section readonly">
+                            <h3><i class="fas fa-briefcase"></i> Professional Information</h3>
+                            <p class="readonly-notice"><i class="fas fa-lock"></i> This information can only be updated by administrators</p>
+                            <div class="profile-details">
+                                <div class="profile-detail-item">
+                                    <label>Employee ID:</label>
+                                    <span id="profile-employee-id">EMP001</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Join Date:</label>
+                                    <span id="profile-join-date">2023-01-15</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Department:</label>
+                                    <span id="profile-department">Quality Assurance</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Employment Type:</label>
+                                    <span id="profile-employment-type">Full-time</span>
+                                </div>
+                                <div class="profile-detail-item">
+                                    <label>Experience:</label>
+                                    <span id="profile-experience">3 years</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Profile Modal -->
+                <div id="edit-profile-modal" class="modal">
+                    <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+                        <div class="modal-header">
+                            <h3><i class="fas fa-edit"></i> Edit My Profile</h3>
+                            <button class="modal-close-btn" onclick="hideModal('edit-profile-modal')" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="edit-profile-form">
+                            <!-- Personal Information -->
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                                <i class="fas fa-user"></i> Personal Information
+                            </h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="tel" id="edit-phone" placeholder="Phone Number" required>
+                                <input type="text" id="edit-emergency-contact" placeholder="Emergency Contact Number" required>
+                            </div>
+                            
+                            <!-- Address Information -->
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                                <i class="fas fa-map-marker-alt"></i> Address Information
+                            </h4>
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                                <textarea id="edit-address" placeholder="Full Address" rows="2"></textarea>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                                <input type="text" id="edit-city" placeholder="City">
+                                <input type="text" id="edit-state" placeholder="State/Province">
+                                <input type="text" id="edit-zipcode" placeholder="ZIP/Postal Code">
+                            </div>
+
+                            <!-- Education & Skills -->
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                                <i class="fas fa-graduation-cap"></i> Education & Skills
+                            </h4>
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                                <input type="text" id="edit-education" placeholder="Highest Education (e.g., Bachelor's in Computer Science)">
+                                <input type="number" id="edit-experience" placeholder="Years of Experience" min="0" max="50">
+                                <input type="text" id="edit-certifications" placeholder="Certifications (e.g., ISTQB, Agile)">
+                                <textarea id="edit-skills" placeholder="Technical Skills (e.g., Selenium, Java, API Testing, etc.)" rows="2"></textarea>
+                            </div>
+                            
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="hideModal('edit-profile-modal')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
